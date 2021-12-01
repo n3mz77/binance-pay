@@ -1,0 +1,18 @@
+{
+    "name": "persec/binance-pay",
+    "type": "library",
+    "autoload": {
+        "psr-4": {
+            "Persec\\BinancePay\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "wattana",
+            "email": "wattana.php@gmail.com"
+        }
+    ],
+    "require-dev": {
+        "vlucas/phpdotenv": "^5.4"
+    }
+}
