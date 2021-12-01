@@ -103,7 +103,6 @@ class BinancePay
             curl_setopt($curl, CURLOPT_VERBOSE, true);
         }
         $response = curl_exec($curl);
-        curl_close($curl);
         $httpStatusCode = intval(curl_getinfo($curl, CURLINFO_HTTP_CODE));
         $errNo = curl_errno($curl);
         $errMsg = curl_error($curl);
