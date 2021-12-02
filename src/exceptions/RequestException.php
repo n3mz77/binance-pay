@@ -1,6 +1,6 @@
 <?php
 
-namespace Persec\BinancePay;
+namespace Persec\BinancePay\Exceptions;
 
 use Exception;
 

@@ -2,6 +2,7 @@
 
 namespace Persec\BinancePay;
 
+use Persec\BinancePay\Exceptions\RequestException;
 use RuntimeException;
 
 class BinancePay
