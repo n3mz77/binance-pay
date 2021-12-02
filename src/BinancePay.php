@@ -39,13 +39,37 @@ class BinancePay
         return $this->key;
     }
 
+    public function getHeaderNameTimestamp(): string
+    {
+        return 'BinancePay-Timestamp';
+    }
+
+    public function getHeaderNameNonce(): string
+    {
+        return 'BinancePay-Nonce';
+    }
+
+    public function getHeaderNameCertificate(): string
+    {
+        return 'BinancePay-Certificate-SN';
+    }
+
+    public function getHeaderNameSignature(): string
+    {
+        return 'BinancePay-Signature';
+    }
+
     private function getHeaders($timestamp, $nonce, $signature, $cert): array
     {
+        $headerTimestamp = $this->getHeaderNameTimestamp();
+        $headerNonce = $this->getHeaderNameNonce();
+        $headerCert = $this->getHeaderNameCertificate();
+        $headerSignature = $this->getHeaderNameSignature();
         return [
-            'BinancePay-Timestamp:' . $timestamp,
-            'BinancePay-Nonce:' .  $nonce,
-            'BinancePay-Certificate-SN:' . $cert,
-            'BinancePay-Signature:' . $signature,
+            "$headerTimestamp:$timestamp",
+            "$headerNonce:$nonce",
+            "$headerCert:$cert",
+            "$headerSignature:$signature",
             'Content-Type:application/json'
         ];
     }
@@ -115,6 +139,13 @@ class BinancePay
             throw new RequestException($response, $httpStatusCode);
         }
         return $response;
+    }
+
+    public function verifySignature($timestamp, $nonce, $body, $signature): bool
+    {
+        $payload = $this->getPayload($timestamp, $nonce, $body);
+        $newSign = $this->getSignature($payload);
+        return $signature === $newSign;
     }
 }
 
