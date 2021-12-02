@@ -23,7 +23,8 @@ class OrderNotification
         $this->bizStatus = $data['bizStatus'] ?? null;
         $this->raw = $data;
         if (!empty($data['data'])) {
-            $this->data = new NotificationData($data['data']);
+            $json = json_decode($data['data'], true) ?? [];
+            $this->data = new NotificationData($json);
         }
     }
 

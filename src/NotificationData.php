@@ -25,7 +25,8 @@ class NotificationData
         $this->transactTime = $data['transactTime'] ?? null;
         $this->openUserId = $data['openUserId'] ?? null;
         if (!empty($data['payerInfo'])) {
-            $this->payerInfo = new PayInfoData($data['payerInfo']);
+            $json = json_decode($data['payerInfo'], true) ?? [];
+            $this->payerInfo = new PayInfoData($json);
         }
     }
 }
