@@ -74,9 +74,12 @@ class BinancePay
         ];
     }
 
-    private function getPayload($timestamp, $nonce, array $data): string
+    private function getPayload($timestamp, $nonce, $data): string
     {
-        $body = json_encode($data);
+        $body = $data;
+        if (is_array($data)) {
+            $body = json_encode($data);
+        }
         return "$timestamp\n$nonce\n$body\n";
     }
 
