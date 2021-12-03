@@ -51,7 +51,7 @@ class BinancePay
 
     public function getHeaderNameCertificate(): string
     {
-        return 'Binancepay-Certificate-SN';
+        return 'Binancepay-Certificate-Sn';
     }
 
     public function getHeaderNameSignature(): string
