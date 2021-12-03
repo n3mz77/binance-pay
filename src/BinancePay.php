@@ -41,22 +41,22 @@ class BinancePay
 
     public function getHeaderNameTimestamp(): string
     {
-        return 'BinancePay-Timestamp';
+        return 'Binancepay-Timestamp';
     }
 
     public function getHeaderNameNonce(): string
     {
-        return 'BinancePay-Nonce';
+        return 'Binancepay-Nonce';
     }
 
     public function getHeaderNameCertificate(): string
     {
-        return 'BinancePay-Certificate-SN';
+        return 'Binancepay-Certificate-SN';
     }
 
     public function getHeaderNameSignature(): string
     {
-        return 'BinancePay-Signature';
+        return 'Binancepay-Signature';
     }
 
     private function getHeaders($timestamp, $nonce, $signature, $cert): array
