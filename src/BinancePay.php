@@ -144,11 +144,29 @@ class BinancePay
         return $response;
     }
 
-    public function verifySignature($timestamp, $nonce, $body, $signature): bool
+    public function verifySignature($timestamp, $nonce, $body, $signature, $publicKey): bool
     {
+        $decode = base64_decode($signature);
         $payload = $this->getPayload($timestamp, $nonce, $body);
-        $newSign = $this->getSignature($payload);
-        return $signature === $newSign;
+        return openssl_verify($payload, $decode, $publicKey, OPENSSL_ALGO_SHA256 ) === 1;
+    }
+
+    /**
+     * @return CertificateResponse
+     * @throws RequestException
+     */
+    public function queryCertificate(): CertificateResponse
+    {
+        $endpoint = $this->getBaseEndpoint('/binancepay/openapi/certificates');
+        $timestamp = $this->getTimestamp();
+        $nonce = $this->getNonce();
+        $payload = $this->getPayload($timestamp, $nonce, []);
+        $signature = $this->getSignature($payload);
+        $cert = $this->getCertificate();
+        $headers = $this->getHeaders($timestamp, $nonce, $signature, $cert);
+        $rawResponse = $this->request($endpoint, json_encode([]), $headers);
+        $responseJson = json_decode($rawResponse, true);
+        return new CertificateResponse($responseJson);
     }
 }
 
